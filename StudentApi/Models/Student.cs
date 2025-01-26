@@ -13,5 +13,6 @@ namespace StudentApi.Models
         public string LastName { get; set; }
         [Column("Student_Email", TypeName = "varchar(100)")]
         public string Email { get; set; }
+        public int Standard { get; set; }
     }
 }
