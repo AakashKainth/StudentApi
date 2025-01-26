@@ -8,11 +8,15 @@ namespace StudentApi.Models
         [Key]
         public int Id { get; set; }
         [Column("Student_Name", TypeName = "varchar(100)")]
+        [Required]
         public string FirstName { get; set; }
         [Column("Student_LastName", TypeName = "varchar(100)")]
+        [Required]
         public string LastName { get; set; }
         [Column("Student_Email", TypeName = "varchar(100)")]
+        [Required]
         public string Email { get; set; }
-        public int Standard { get; set; }
+        [Required]
+        public int? Standard { get; set; }
     }
 }
