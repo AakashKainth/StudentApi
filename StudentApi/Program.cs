@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 
 var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetRequiredService<IConfiguration>();
-builder.Services.AddDbContext<SchoolContext>(options =>
+builder.Services.AddDbContext<StudentContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

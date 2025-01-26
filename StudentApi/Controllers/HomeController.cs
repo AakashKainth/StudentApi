@@ -1,21 +1,30 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using StudentApi.Models;
+using StudentApi.Data;
 
 namespace StudentApi.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private StudentContext _studentDB;
 
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public HomeController(StudentContext studentDB)
         {
-            _logger = logger;
+                _studentDB = studentDB;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var stdData = _studentDB.Students.ToList();
+            return View(stdData);
         }
 
         public IActionResult Privacy()

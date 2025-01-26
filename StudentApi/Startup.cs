@@ -16,7 +16,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<SchoolContext>(options =>
+        services.AddDbContext<StudentContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         services.AddControllers();
     }

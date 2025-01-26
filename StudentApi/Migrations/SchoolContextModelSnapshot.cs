@@ -9,7 +9,7 @@ using StudentApi.Data;
 
 namespace StudentApi.Migrations
 {
-    [DbContext(typeof(SchoolContext))]
+    [DbContext(typeof(StudentContext))]
     partial class SchoolContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

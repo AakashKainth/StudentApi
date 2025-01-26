@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace StudentApi.Data
 {
-    public class SchoolContext : DbContext
+    public class StudentContext : DbContext
     {
-        public SchoolContext(DbContextOptions<SchoolContext> options) : base(options) { }
+        public StudentContext(DbContextOptions<StudentContext> options) : base(options) { }
 
         public DbSet<Student> Students { get; set; }
     }

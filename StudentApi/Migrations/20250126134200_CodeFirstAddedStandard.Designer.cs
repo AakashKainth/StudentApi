@@ -10,7 +10,7 @@ using StudentApi.Data;
 
 namespace StudentApi.Migrations
 {
-    [DbContext(typeof(SchoolContext))]
+    [DbContext(typeof(StudentContext))]
     [Migration("20250126134200_CodeFirstAddedStandard")]
     partial class CodeFirstAddedStandard
     {
