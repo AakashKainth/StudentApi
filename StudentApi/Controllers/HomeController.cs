@@ -59,6 +59,37 @@ namespace StudentApi.Controllers
             }
             return View(stdData);
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _studentDB.Students == null)
+            {
+                return NotFound();
+            }
+            var stdData = await _studentDB.Students.FindAsync(id);
+            if (stdData == null)
+            {
+                return NotFound();
+            }
+            return View(stdData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int? id, Student std)
+        {
+            if(id != std.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _studentDB.Students.Update(std);
+                await _studentDB.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(std);
+        }
+
         public IActionResult Privacy()
         {
             return View();
