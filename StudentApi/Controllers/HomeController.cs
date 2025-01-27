@@ -77,18 +77,65 @@ namespace StudentApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int? id, Student std)
         {
-            if(id != std.Id)
+            if (id == null || id != std.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingStudent = await _studentDB.Students.FindAsync(id);
+            if (existingStudent == null)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
-                _studentDB.Students.Update(std);
+                existingStudent.FirstName = std.FirstName;
+                existingStudent.LastName = std.LastName;
+                existingStudent.Email = std.Email;
+                existingStudent.Standard = std.Standard;
+
+                _studentDB.Students.Update(existingStudent);
                 await _studentDB.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(std);
         }
+
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _studentDB.Students == null)
+            {
+                return NotFound();
+            }
+            var stdData = await _studentDB.Students.FirstOrDefaultAsync(x => x.Id == id);
+            if (stdData == null)
+            {
+                return NotFound();
+            }
+            return View(stdData);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            var stdData = await _studentDB.Students.FindAsync(id);
+            if (stdData == null)
+            {
+                return NotFound();
+            }
+
+            _studentDB.Students.Remove(stdData);
+            await _studentDB.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Privacy()
         {
