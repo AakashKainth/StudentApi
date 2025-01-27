@@ -34,12 +34,14 @@ namespace StudentApi.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Student std)
         {
             if (ModelState.IsValid)
             {
                 await _studentDB.Students.AddAsync(std);
                 await _studentDB.SaveChangesAsync();
+                TempData["Create_Message"] = "Student added successfully";
                 return RedirectToAction("Index");
             }
             return View(std);
@@ -75,6 +77,7 @@ namespace StudentApi.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, Student std)
         {
             if (id == null || id != std.Id)
@@ -97,6 +100,7 @@ namespace StudentApi.Controllers
 
                 _studentDB.Students.Update(existingStudent);
                 await _studentDB.SaveChangesAsync();
+                TempData["Update_Message"] = "Student updated successfully";
                 return RedirectToAction("Index");
             }
             return View(std);
@@ -118,6 +122,7 @@ namespace StudentApi.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id == 0)
@@ -133,6 +138,7 @@ namespace StudentApi.Controllers
 
             _studentDB.Students.Remove(stdData);
             await _studentDB.SaveChangesAsync();
+            TempData["Delete_Message"] = "Student deleted successfully";
             return RedirectToAction("Index");
         }
 
